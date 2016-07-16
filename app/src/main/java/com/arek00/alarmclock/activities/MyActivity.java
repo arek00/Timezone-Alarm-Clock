@@ -1,49 +1,22 @@
 package com.arek00.alarmclock.activities;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.*;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.arek00.alarmclock.MyAdapter;
 import com.arek00.alarmclock.R;
+import com.arek00.alarmclock.connections.TimeServiceConnection;
 import com.arek00.alarmclock.content.City;
 import com.arek00.alarmclock.services.TimeService;
 
 
 public class MyActivity extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
-
-    private Messenger serviceMessenger;
     private Messenger handlerMessenger = new Messenger(new IncomingHandler());
-    //realizing connection with service
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder service) {
-            serviceMessenger = new Messenger(service);
-
-            Log.i("ServiceConnection", "Creating service connection");
-
-            try {
-                Message message = Message.obtain(null, TimeService.REGISTER_CLIENT);
-                message.replyTo = handlerMessenger;
-                serviceMessenger.send(message);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            serviceMessenger = null;
-        }
-    };
+    private TimeServiceConnection serviceConnection = new TimeServiceConnection(handlerMessenger);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,21 +35,10 @@ public class MyActivity extends Activity {
     }
 
     private void sendMessageToService(String searchPhrase) {
-        if (serviceMessenger != null) {
-            try {
-                Message message = Message.obtain(null, TimeService.SEARCH_CITY);
-                Bundle bundle = new Bundle();
-                bundle.putString("name", searchPhrase);
-                message.setData(bundle);
-                message.replyTo = handlerMessenger;
-                serviceMessenger.send(message);
-
-                Log.i("MyActivity", "Sent message");
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-
+        try {
+            serviceConnection.sendMessage(searchPhrase, TimeService.SEARCH_CITY);
+        } catch (RemoteException e) {
+            Log.e("Send Message", "Could not send message to service.");
         }
     }
 

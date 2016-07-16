@@ -1,6 +1,7 @@
 package com.arek00.alarmclock.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,10 @@ public class MainActivity extends Activity {
 
     public void onSetNewAlarmButtonClick(View view) {
         Log.i("Main activity", "Clicked onSetNewAlarmButton");
+        Intent intent = new Intent(this, MyActivity.class);
+        startActivity(intent);
     }
+
 
     public void onManageAlarmsButtonClick(View view) {
         Log.i("Main activity", "Clicked onManageAlarmsButton");

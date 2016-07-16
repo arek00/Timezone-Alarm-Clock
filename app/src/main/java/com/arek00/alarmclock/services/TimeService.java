@@ -11,9 +11,6 @@ import com.arek00.alarmclock.content.HourGenerator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by Admin on 2015-01-24.
- */
 public class TimeService extends Service {
 
     public static final int REGISTER_CLIENT = 1;
@@ -49,12 +46,12 @@ public class TimeService extends Service {
         String searchPhrase;
         CitySearcher searcher = new CitySearcher();
         searchPhrase = message.getData().getString("name");
-        City tempCity = searcher.citySearch(searchPhrase);
+        City searchedCity = searcher.citySearch(searchPhrase);
 
 
-        if (tempCity != null) {
-            this.currentCity = tempCity;
-            Log.i("City has been set: ", tempCity.getName() + " UTC " + tempCity.getUTCOffset());
+        if (searchedCity != null) {
+            this.currentCity = searchedCity;
+            Log.i("City has been set: ", searchedCity.getName() + " UTC " + searchedCity.getUTCOffset());
             return true;
         } else {
             Log.i("City has not been set: ", "Couldnt find city");
