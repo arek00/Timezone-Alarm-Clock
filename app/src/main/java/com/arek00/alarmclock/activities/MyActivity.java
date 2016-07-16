@@ -1,4 +1,4 @@
-package com.arek00.alarmclock;
+package com.arek00.alarmclock.activities;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -9,6 +9,8 @@ import android.os.*;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.arek00.alarmclock.MyAdapter;
+import com.arek00.alarmclock.R;
 import com.arek00.alarmclock.content.City;
 import com.arek00.alarmclock.services.TimeService;
 

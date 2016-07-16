@@ -11,7 +11,7 @@
 
     <!-- MAIN ACTIVITY STRINGS-->
     <string name="main.app_name">Timezone Clock Alarm</string>
-    <string name="main.choose_action">Choose action</string>
+    <string name="main.choose_action">Choose an action</string>
     <string name="main.new_alarm">Set new alarm</string>
     <string name="main.manage">Manage alarms</string>
 
