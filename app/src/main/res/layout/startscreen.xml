@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp" android:background="#1e1e1e">
+
+    <ImageView
+            android:layout_width="123dp"
+            android:layout_height="164dp"
+            android:id="@+id/iconImageView" android:layout_gravity="center_horizontal"
+            android:background="@drawable/alarmclock_icon" android:layout_margin="5dp"
+    />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main.app_name"
+            android:id="@+id/titleTextView" android:layout_gravity="center_horizontal" android:textColor="#ffffff"
+            android:textSize="30dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main.choose_action"
+            android:id="@+id/textView" android:layout_gravity="center_horizontal" android:textSize="20dp"
+            android:textColor="#ffffff" android:layout_marginTop="20dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="165dp" android:id="@+id/actionButtonsLayout">
+        <Button
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="@string/main.new_alarm"
+                android:id="@+id/setAlarmButton" android:layout_gravity="center" android:layout_weight="1"
+                android:background="#000000" android:textColor="#ffffff" android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"/>
+        <Button
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="@string/main.manage"
+                android:id="@+id/manageAlarmsButton" android:layout_gravity="center|right" android:layout_weight="1"
+                android:maxWidth="100dp" android:minHeight="100dp" android:background="#000000"
+                android:textColor="#ffffff" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"/>
+    </LinearLayout>
+</LinearLayout>

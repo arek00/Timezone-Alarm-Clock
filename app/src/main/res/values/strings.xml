@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">timezone</string>
+    <string name="app_name">Timezone Clock Alarm</string>
+    <string name="choose_timezone">Type name of City</string>
+    <string name="search">Search</string>
+    <string name="city_header">City</string>
+    <string name="city_name_default">Did not choose</string>
+    <string name="current_hour_header">Current Time</string>
+    <string name="current_hour_default">Did not choose</string>
+    <string name="cities_list">Cities</string>
 
-    <string name="choose_timezone">Wpisz nazwę miasta</string>
-    <string name="search">Wyszukaj</string>
-    <string name="city_header">Miasto</string>
-    <string name="city_name_default">Nie wybrano</string>
-    <string name="current_hour_header">Aktualna godzina</string>
-    <string name="current_hour_default">Nie wybrano</string>
-    <string name="cities_list">Lista Miast</string>
-
+    <!-- MAIN ACTIVITY STRINGS-->
+    <string name="main.app_name">Timezone Clock Alarm</string>
+    <string name="main.choose_action">Choose action</string>
+    <string name="main.new_alarm">Set new alarm</string>
+    <string name="main.manage">Manage alarms</string>
 
 </resources>
