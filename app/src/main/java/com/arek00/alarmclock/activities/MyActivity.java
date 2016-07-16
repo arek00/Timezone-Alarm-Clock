@@ -76,7 +76,7 @@ public class MyActivity extends Activity {
 
     }
 
-    class IncomingHandler extends Handler {
+    public class IncomingHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {

@@ -19,14 +19,11 @@ public class TimeServiceConnection implements ServiceConnection {
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder service) {
         serviceMessenger = new Messenger(service);
-
         Log.i("ServiceConnection", "Creating service connection");
-
         try {
-            Message message = Message.obtain(null, TimeService.REGISTER_CLIENT);
-            message.replyTo = handlerMessenger;
-            serviceMessenger.send(message);
+            registerClient();
         } catch (RemoteException e) {
+            Log.e("TimeServiceConnection", "Could not register client");
             e.printStackTrace();
         }
     }
@@ -41,8 +38,23 @@ public class TimeServiceConnection implements ServiceConnection {
             return;
         }
 
-        serviceMessenger.send(createMessage(messageString, messageType));
+        Message message = createMessage(messageString, messageType);
+        sendMessage(message);
         Log.i("MyActivity", "Sent message");
+    }
+
+    public void sendMessage(Message message) throws RemoteException {
+        if (serviceMessenger == null) {
+            return;
+        }
+
+        serviceMessenger.send(message);
+    }
+
+    private void registerClient() throws RemoteException {
+        Message message = Message.obtain(null, TimeService.REGISTER_CLIENT);
+        message.replyTo = handlerMessenger;
+        serviceMessenger.send(message);
     }
 
     private Message createMessage(String text, int messageType) {
