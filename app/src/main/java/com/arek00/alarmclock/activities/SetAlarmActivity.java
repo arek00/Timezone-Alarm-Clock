@@ -19,7 +19,7 @@ import com.arek00.alarmclock.handlers.IncomingMessagesHandler;
 import com.arek00.alarmclock.services.TimeService;
 
 
-public class MyActivity extends Activity {
+public class SetAlarmActivity extends Activity {
 
     private IncomingMessagesHandler handler;
     private Messenger handlerMessenger;
@@ -31,7 +31,7 @@ public class MyActivity extends Activity {
         initializeServiceHandling();
         initializeContentView();
 
-        startService(new Intent(MyActivity.this, TimeService.class));
+        startService(new Intent(SetAlarmActivity.this, TimeService.class));
         bindService(new Intent(this, TimeService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -52,7 +52,7 @@ public class MyActivity extends Activity {
     }
 
     private void initializeContentView() {
-        setContentView(R.layout.main);
+        setContentView(R.layout.set_alarm);
 
         Log.i("MyActivity", "OnCreate");
 
@@ -74,7 +74,7 @@ public class MyActivity extends Activity {
     public void onStop() {
         super.onStop();
         unbindService(serviceConnection);
-        stopService(new Intent(MyActivity.this, TimeService.class));
+        stopService(new Intent(SetAlarmActivity.this, TimeService.class));
     }
 
     public void citiesList(View view) {

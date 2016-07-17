@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/topContener" android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp" android:layout_marginLeft="2dp">
+        <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView" android:background="@drawable/alarmclock_icon"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main.app_name"
+                android:id="@+id/appNameTextView" android:layout_gravity="center_vertical" android:textSize="25dp"
+                android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/searchContener" android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="10dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_timezone"
+                android:layout_margin="3dp"
+                android:id="@+id/chooseCityTextView"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/searchLayout" android:weightSum="1">
+            <EditText
+                    android:layout_width="233dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:id="@+id/searchCityText"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/search"
+                    android:id="@+id/searchButton" android:onClick="onSearchClick" android:layout_weight="0.70"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/currentZoneContainer">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/yourTimeContainer">
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/chosenTimeContainer">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_margin="5dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/city_header"
+                        android:id="@+id/cityHeader" android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/city_name_default"
+                        android:id="@+id/cityName" android:gravity="left"
+                        android:layout_gravity="right" android:textAlignment="gravity"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_margin="5dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/current_hour_header"
+                        android:id="@+id/currentHourHeader" android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/current_hour_default"
+                        android:id="@+id/currentHour"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cities_list"
+            android:id="@+id/citiesListText"/>
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="308dp"
+            android:id="@+id/citiesList"
+            android:visibility="visible"/>
+</LinearLayout>
+
