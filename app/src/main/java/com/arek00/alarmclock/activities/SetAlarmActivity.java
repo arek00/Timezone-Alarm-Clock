@@ -9,7 +9,10 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import com.arek00.alarmclock.MyAdapter;
 import com.arek00.alarmclock.R;
 import com.arek00.alarmclock.connections.TimeServiceConnection;
@@ -87,18 +90,13 @@ public class SetAlarmActivity extends Activity {
         cityName = message.getData().getString("cityName");
         date = message.getData().getString("date");
 
-        TextView textView = (TextView) findViewById(R.id.cityName);
-        textView.setText(cityName);
-
-        textView = (TextView) findViewById(R.id.currentHour);
+        TextView textView = (TextView) findViewById(R.id.chosenTimeValueLabel);
         textView.setText(date);
 
     }
 
     public void onSearchClick(View view) {
-        EditText editText = (EditText) findViewById(R.id.searchCityText);
-        sendMessageToService(editText.getText().toString());
-        Log.i("MyActivity", "Button Clicked");
+        Log.i("MyActivity", "Not implemented");
     }
 
     private class ListItemClickListener implements AdapterView.OnItemClickListener {
