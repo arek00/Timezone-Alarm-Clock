@@ -4,9 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.*;
 import android.util.Log;
-import com.arek00.alarmclock.content.City;
-import com.arek00.alarmclock.content.CitySearcher;
-import com.arek00.alarmclock.content.HourGenerator;
+import com.arek00.alarmclock.time.CitySearcher;
+import com.arek00.alarmclock.time.HourGenerator;
+import org.joda.time.DateTimeZone;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +24,7 @@ public class TimeService extends Service {
     private Messenger clientMessenger;
     private Messenger serviceMessenger = new Messenger(new IncomingHandler());
 
-    private City currentCity;
+    private DateTimeZone currentTimezone;
     private CitySearcher searcher;
     private HourGenerator hourGenerator = HourGenerator.getInstance();
 
@@ -43,21 +43,19 @@ public class TimeService extends Service {
     }
 
     private boolean searchCity(Message message) {
-        String searchPhrase;
-        CitySearcher searcher = new CitySearcher();
-        searchPhrase = message.getData().getString("name");
-        City searchedCity = searcher.citySearch(searchPhrase);
+        String timeZoneId = message.getData().getString("name");
 
-
-        if (searchedCity != null) {
-            this.currentCity = searchedCity;
-            Log.i("City has been set: ", searchedCity.getName() + " UTC " + searchedCity.getUTCOffset());
-            return true;
-        } else {
-            Log.i("City has not been set: ", "Couldnt find city");
+        DateTimeZone timeZone;
+        try {
+            timeZone = DateTimeZone.forID(timeZoneId);
+        } catch (IllegalArgumentException exception) {
+            Log.i("City has not been set ", "Could not found timezone with id: " + timeZoneId);
             return false;
-
         }
+
+        this.currentTimezone = timeZone;
+        Log.i("City has been set: ", timeZoneId + " UTC " + timeZone.getOffset(0l));
+        return true;
 
     }
 
@@ -65,8 +63,8 @@ public class TimeService extends Service {
         String cityName;
         String date;
 
-        cityName = currentCity.getName();
-        date = hourGenerator.getCurrentHourInTimeZone(currentCity).toString();
+        cityName = currentTimezone.getID();
+        date = hourGenerator.getCurrentHourInTimeZone(currentTimezone).toString();
 
         try {
             Message message = Message.obtain(null, TimeService.SEND_DATE);

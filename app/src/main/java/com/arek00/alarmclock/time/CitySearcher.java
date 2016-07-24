@@ -1,4 +1,4 @@
-package com.arek00.alarmclock.content;
+package com.arek00.alarmclock.time;
 
 import android.util.Log;
 
@@ -7,15 +7,15 @@ import android.util.Log;
  */
 public class CitySearcher {
 
-    public City citySearch(String name) {
-        for (City city : City.values()) {
-            String cityName = city.getName();
+    public Timezone citySearch(String name) {
+        for (Timezone timezone : Timezone.values()) {
+            String cityName = timezone.getDescription();
             if (name.toLowerCase().equals(cityName.toLowerCase())) {
 
                 Log.i("CitySearcher", "Found City");
 
 
-                return city;
+                return timezone;
             }
         }
 

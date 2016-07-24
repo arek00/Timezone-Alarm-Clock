@@ -16,10 +16,11 @@ import android.widget.TextView;
 import com.arek00.alarmclock.MyAdapter;
 import com.arek00.alarmclock.R;
 import com.arek00.alarmclock.connections.TimeServiceConnection;
-import com.arek00.alarmclock.content.City;
 import com.arek00.alarmclock.handlers.IncomingMessagesAdapter;
 import com.arek00.alarmclock.handlers.IncomingMessagesHandler;
 import com.arek00.alarmclock.services.TimeService;
+import com.arek00.alarmclock.time.JodaTimezone;
+import org.joda.time.DateTimeZone;
 
 
 public class SetAlarmActivity extends Activity {
@@ -60,7 +61,9 @@ public class SetAlarmActivity extends Activity {
         Log.i("MyActivity", "OnCreate");
 
         ListView list = (ListView) findViewById(R.id.citiesList);
-        ListAdapter adapter = new MyAdapter(this, City.values());
+
+
+        ListAdapter adapter = new MyAdapter(this, JodaTimezone.getAvailableTimeZones());
         list.setAdapter(adapter);
         list.setOnItemClickListener(new ListItemClickListener());
     }
@@ -104,7 +107,7 @@ public class SetAlarmActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            String text = ((City) adapterView.getItemAtPosition(i)).getName();
+            String text = ((DateTimeZone) adapterView.getItemAtPosition(i)).getID();
             sendMessageToService(text);
         }
     }

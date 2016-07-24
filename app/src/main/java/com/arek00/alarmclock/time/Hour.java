@@ -1,4 +1,4 @@
-package com.arek00.alarmclock.content;
+package com.arek00.alarmclock.time;
 
 /**
  * Created by Admin on 2015-01-18.

@@ -1,13 +1,11 @@
-package com.arek00.alarmclock.content;
+package com.arek00.alarmclock.time;
 
 import android.util.Log;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
-import java.util.Calendar;
 import java.util.TimeZone;
 
-/**
- * Created by Admin on 2015-01-18.
- */
 public class HourGenerator {
 
     private static HourGenerator instance = new HourGenerator();
@@ -27,23 +25,19 @@ public class HourGenerator {
         return instance;
     }
 
-    public Hour getCurrentHourInTimeZone(City city) {
+    public Hour getCurrentHourInTimeZone(DateTimeZone timezone) {
+        int offsetInMillis = timezone.getOffset(0l);
+        DateTime currentUtcTime = new DateTime(DateTimeZone.UTC);
+        DateTime offsetAppliedHour = currentUtcTime.plusMillis(offsetInMillis);
 
-        Calendar calendar = Calendar.getInstance();
-
-        int utcOffset = city.getUTCOffset();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
-
-        hour = validateHour(hour - userUTCOffset + utcOffset);
-
-        return new Hour(hour, minute, second);
+        return new Hour(offsetAppliedHour.getHourOfDay(),
+                offsetAppliedHour.getMinuteOfHour(),
+                offsetAppliedHour.getSecondOfMinute());
     }
 
-    private int validateHour(int hour) {
+    private double validateHour(double hour) {
 
-        Log.i("Validate hour: ", Integer.toString(hour));
+        Log.i("Validate hour: ", Double.toString(hour));
 
         if (hour < 0) {
             return 24 + hour;
@@ -51,7 +45,7 @@ public class HourGenerator {
             return hour % 24;
         }
 
-        Log.i("Validate hour: ", Integer.toString(hour));
+        Log.i("Validate hour: ", Double.toString(hour));
 
         return hour;
     }

@@ -7,12 +7,12 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/cityField"/>
+            android:text="New Text"
+            android:id="@+id/timezoneField" android:textSize="25dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/timezoneField"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/cityField" android:textSize="12dp"/>
 </LinearLayout>
