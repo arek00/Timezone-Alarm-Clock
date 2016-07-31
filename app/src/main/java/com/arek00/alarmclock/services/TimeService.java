@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.*;
 import android.util.Log;
-import com.arek00.alarmclock.time.CitySearcher;
 import com.arek00.alarmclock.time.HourGenerator;
 import org.joda.time.DateTimeZone;
 
@@ -25,7 +24,6 @@ public class TimeService extends Service {
     private Messenger serviceMessenger = new Messenger(new IncomingHandler());
 
     private DateTimeZone currentTimezone;
-    private CitySearcher searcher;
     private HourGenerator hourGenerator = HourGenerator.getInstance();
 
     private Timer timer = new Timer();
@@ -42,7 +40,7 @@ public class TimeService extends Service {
         return serviceMessenger.getBinder();
     }
 
-    private boolean searchCity(Message message) {
+    private boolean findTimezone(Message message) {
         String timeZoneId = message.getData().getString("name");
 
         DateTimeZone timeZone;
@@ -107,7 +105,7 @@ public class TimeService extends Service {
                     Log.i("TimeService", "Registered client");
                     break;
                 case TimeService.SEARCH_CITY:
-                    if (searchCity(message)) {
+                    if (findTimezone(message)) {
                         checkServiceIsStarted();
                     }
                     break;

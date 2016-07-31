@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:background="#101010">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/buttonsContainer">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_picker.simple"
+                android:id="@+id/nearestHourButton" android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1" android:onClick="onSimpleAlarmButtonClick"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/date_picker.periodic"
+                android:id="@+id/cyclicAlarmButton"
+                android:layout_alignParentTop="true" android:layout_toEndOf="@+id/nearestHourButton"
+                android:layout_weight="1" android:onClick="onPeriodicAlarmLayout"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/date_picker.concrete_date"
+                android:id="@+id/concreteDateButton"
+                android:layout_alignBottom="@+id/simpleAlarmLayout" android:layout_alignParentEnd="true"
+                android:layout_weight="1" android:onClick="onConcreteAlarmButtonClick"/>
+    </LinearLayout>
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_below="@+id/buttonsContainer"
+            android:layout_alignParentStart="true" android:layout_margin="6dp" android:id="@+id/relativeLayout">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_picker.your_time"
+                android:id="@+id/yourTimeLabel" android:textSize="16dp" android:textColor="#ffffff"
+                android:layout_alignParentLeft="true" android:layout_marginLeft="0dp"
+                android:layout_alignParentTop="true" android:layout_marginTop="0dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/setalarm.not_set" android:id="@+id/yourTimeValueLabel" android:textSize="16dp"
+                  android:textColor="#ffffff" android:layout_marginLeft="0dp"
+                  android:layout_alignParentTop="true" android:layout_alignParentEnd="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/date_picker.selected_time_zone_id" android:id="@+id/timeZoneIdLabel"
+                  android:textSize="16dp"
+                  android:textColor="#ffffff" android:layout_marginLeft="0dp"
+                  android:layout_below="@+id/yourTimeLabel" android:layout_alignParentStart="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/setalarm.not_set" android:id="@+id/timeZoneIdValueLabel"
+                  android:textSize="16dp" android:textColor="#ffffff" android:layout_marginLeft="0dp"
+                  android:layout_above="@+id/timeZoneHourLabel" android:layout_alignParentEnd="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/date_picker.selected_time_zone_time" android:id="@+id/timeZoneHourLabel"
+                  android:textSize="16dp" android:textColor="#ffffff" android:layout_marginLeft="0dp"
+                  android:layout_below="@+id/timeZoneIdLabel" android:layout_alignParentStart="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/setalarm.not_set" android:id="@+id/timeZoneHourValueLabel"
+                  android:textSize="16dp" android:textColor="#ffffff" android:layout_marginLeft="0dp"
+                  android:layout_below="@+id/timeZoneIdValueLabel" android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_picker.set_button"
+            android:id="@+id/setAlarmButton"
+            android:layout_alignParentBottom="true" android:layout_alignEnd="@+id/relativeLayout"/>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/date_picker.back_button"
+            android:id="@+id/backToTimezoneButton"
+            android:layout_alignParentBottom="true" android:layout_alignStart="@+id/relativeLayout"/>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="fill_parent"
+                    android:id="@+id/periodicAlarmLayout" android:visibility="gone"
+                    android:layout_below="@+id/relativeLayout" android:layout_alignParentStart="true"
+                    android:layout_above="@+id/setAlarmButton">
+        <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:id="@+id/weekDaysContainer" android:layout_weight="1">
+                    <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/day.monday_short"
+                            android:id="@+id/mondayCheckbox"/>
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/day.tuesday_short" android:id="@+id/tuesdayCheckbox"/>
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/day.wednesday_short" android:id="@+id/wednesdayCheckbox"/>
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/day.thursday_short" android:id="@+id/thursdayCkeckbox"/>
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/day.friday_short" android:id="@+id/fridayCheckbox"/>
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/day.saturday_short" android:id="@+id/saturdayCheckbox"/>
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/day.sunday_short" android:id="@+id/sundayCheckbox"/>
+                </LinearLayout>
+                <TimePicker android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:id="@+id/periodicTimePicker" android:timePickerMode="clock"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" android:layout_gravity="center"
+                            android:layout_margin="5dp" android:layout_weight="3">
+                </TimePicker>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" android:id="@+id/simpleAlarmLayout"
+            android:visibility="gone" android:layout_below="@+id/relativeLayout"
+            android:layout_alignParentStart="true" android:layout_above="@+id/setAlarmButton">
+        <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView2">
+            <TimePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timePicker"
+                    android:timePickerMode="spinner"
+                    android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+        </ScrollView>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="fill_parent"
+                    android:id="@+id/concreteDateLayout" android:visibility="visible"
+                    android:layout_below="@+id/relativeLayout" android:layout_alignParentStart="true"
+                    android:layout_above="@+id/setAlarmButton">
+        <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView3">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TimePicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/concreteDateTimePicker"
+                        android:layout_alignParentTop="true"
+                        android:timePickerMode="clock" android:layout_gravity="center_horizontal"/>
+                <DatePicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/concreteDateDayPicker"
+                        android:spinnersShown="true"
+                        android:focusableInTouchMode="false"
+                        android:calendarViewShown="false"
+                        android:layout_below="@+id/concreteDateTimePicker" android:layout_alignParentEnd="true"
+                        android:layout_gravity="center_horizontal" android:clickable="true"
+                        android:datePickerMode="spinner" android:nestedScrollingEnabled="false"/>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

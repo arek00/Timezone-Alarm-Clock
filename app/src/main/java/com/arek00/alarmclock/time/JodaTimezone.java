@@ -1,6 +1,7 @@
 package com.arek00.alarmclock.time;
 
 
+import com.arek00.alarmclock.utils.StringUtil;
 import com.google.common.collect.Sets;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,37 +12,30 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JodaTimezone {
 
-    private static DateTimeZone[] availableTimeZones;
+    private static String[] availableTimeZones;
 
-    public static DateTimeZone[] getAvailableTimeZones() {
-        if (availableTimeZones == null) {
-            initialize();
-        }
-
+    public static String[] getAvailableTimeZones() {
+        initialize();
         return availableTimeZones;
     }
 
-    private static void initialize() {
-        Set<DateTimeZone> dateTimeZones = Sets.newHashSet();
-        Set<String> availableIDs = DateTimeZone.getAvailableIDs();
-
-        for (String id : availableIDs) {
-            DateTimeZone dateTimeZone = DateTimeZone.forID(id);
-            dateTimeZones.add(dateTimeZone);
+    public static void initialize() {
+        if (availableTimeZones == null) {
+            Set<String> availableIDs = DateTimeZone.getAvailableIDs();
+            String[] timeZonesArray = new String[availableIDs.size()];
+            availableTimeZones = availableIDs.toArray(timeZonesArray);
         }
-
-        DateTimeZone[] timeZonesArray = new DateTimeZone[availableIDs.size()];
-        JodaTimezone.availableTimeZones = dateTimeZones.toArray(timeZonesArray);
     }
 
-    public static DateTimeZone[] findTimeZoneByName(String searchPhrase) {
+    public static DateTimeZone[] findTimeZonesByName(String searchPhrase) {
+        initialize();
+
         Set<DateTimeZone> matchedTimeZones = Sets.newHashSet();
 
-        for (DateTimeZone timeZone : availableTimeZones) {
-            String timeZoneId = timeZone.getID();
+        for (String timeZoneId : availableTimeZones) {
 
-            if (timeZoneId.contains(searchPhrase)) {
-                matchedTimeZones.add(timeZone);
+            if (StringUtil.containsIgnoreCaseAndSpaces(searchPhrase, timeZoneId)) {
+                matchedTimeZones.add(DateTimeZone.forID(timeZoneId));
             }
         }
 

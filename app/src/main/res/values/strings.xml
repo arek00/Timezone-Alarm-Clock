@@ -17,9 +17,32 @@
 
     <!-- SET ALARM STRINGS -->
     <string name="setalarm.your_time">Your time zone</string>
+    <string name="setalarm.search">Search</string>
     <string name="setalarm.timezone_time">Timezone</string>
     <string name="setalarm.timezones">Timezones</string>
     <string name="setalarm.not_set">Not set</string>
+    <string name="setalarm.set_timezone_hint">Choose timezone from the search results.</string>
+    <string name="setalarm.set_date_button_text">Select alarm date</string>
+
+    <!-- DATE PICKER -->
+    <string name="date_picker.simple">Simple Alarm</string>
+    <string name="date_picker.periodic">Periodic Alarm</string>
+    <string name="date_picker.concrete_date">Concrete Date</string>
+    <string name="date_picker.your_time">Your Time</string>
+    <string name="date_picker.selected_time_zone_id">Selected Time Zone</string>
+    <string name="date_picker.selected_time_zone_time">Time in Time Zone</string>
+    <string name="date_picker.set_button">Set Alarm</string>
+    <string name="date_picker.back_button">Select Timezone</string>
+
+
+    <!-- -->
+    <string name="day.monday_short">mon</string>
+    <string name="day.tuesday_short">tue</string>
+    <string name="day.wednesday_short">wed</string>
+    <string name="day.thursday_short">thu</string>
+    <string name="day.friday_short">fri</string>
+    <string name="day.saturday_short">sat</string>
+    <string name="day.sunday_short">sun</string>
 
 
 </resources>

@@ -26,13 +26,11 @@ public class HourGenerator {
     }
 
     public Hour getCurrentHourInTimeZone(DateTimeZone timezone) {
-        int offsetInMillis = timezone.getOffset(0l);
-        DateTime currentUtcTime = new DateTime(DateTimeZone.UTC);
-        DateTime offsetAppliedHour = currentUtcTime.plusMillis(offsetInMillis);
+        DateTime currentTimeInTimeZone = new DateTime(timezone);
 
-        return new Hour(offsetAppliedHour.getHourOfDay(),
-                offsetAppliedHour.getMinuteOfHour(),
-                offsetAppliedHour.getSecondOfMinute());
+        return new Hour(currentTimeInTimeZone.getHourOfDay(),
+                currentTimeInTimeZone.getMinuteOfHour(),
+                currentTimeInTimeZone.getSecondOfMinute());
     }
 
     private double validateHour(double hour) {

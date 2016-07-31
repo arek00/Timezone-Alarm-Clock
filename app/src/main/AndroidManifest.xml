@@ -16,6 +16,9 @@
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.DatePickerActivity"
+                  android:label="Timezone Clock Alarm"
+                  android:parentActivityName=".activities.MainActivity"/>
         <service android:name="com.arek00.alarmclock.services.TimeService"></service>
     </application>
 </manifest>
