@@ -15,8 +15,11 @@ import com.arek00.alarmclock.R;
 import com.arek00.alarmclock.connections.TimeServiceConnection;
 import com.arek00.alarmclock.handlers.IncomingMessagesAdapter;
 import com.arek00.alarmclock.handlers.IncomingMessagesHandler;
+import com.arek00.alarmclock.messages.Keys;
 import com.arek00.alarmclock.services.TimeService;
 import com.arek00.alarmclock.time.JodaTimezone;
+import com.arek00.alarmclock.utils.BundleBuilder;
+import com.arek00.alarmclock.utils.MessageWrapper;
 import org.joda.time.DateTimeZone;
 
 
@@ -33,9 +36,6 @@ public class SetAlarmActivity extends Activity {
         JodaTimezone.initialize();
         initializeServiceHandling();
         initializeContentView();
-
-        startService(new Intent(SetAlarmActivity.this, TimeService.class));
-        bindService(new Intent(this, TimeService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     private void initializeServiceHandling() {
@@ -52,17 +52,18 @@ public class SetAlarmActivity extends Activity {
     private void initializeService() {
         handlerMessenger = new Messenger(handler);
         serviceConnection = new TimeServiceConnection(handlerMessenger);
+        bindService(new Intent(this, TimeService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     private void initializeContentView() {
         setContentView(R.layout.set_timezone);
         Log.i("MyActivity", "OnCreate");
 
-        setTimezonesList(new DateTimeZone[]{});
+        setTimeZonesList(new DateTimeZone[]{});
         setListItemClickListener(new ListItemClickListener());
     }
 
-    private void setTimezonesList(DateTimeZone[] timeZones) {
+    private void setTimeZonesList(DateTimeZone[] timeZones) {
         ListView list = (ListView) findViewById(R.id.citiesList);
         ListAdapter adapter = new MyAdapter(this, timeZones);
         list.setAdapter(adapter);
@@ -85,12 +86,28 @@ public class SetAlarmActivity extends Activity {
     public void onStop() {
         super.onStop();
         unbindService(serviceConnection);
-        stopService(new Intent(SetAlarmActivity.this, TimeService.class));
     }
 
     public void onSetDateButtonClick(View view) {
+        if (timezoneName.isEmpty()) {
+            showToast("Choose timezone", Toast.LENGTH_SHORT);
+            return;
+        }
+
+        Bundle bundle = new BundleBuilder()
+                .withString(Keys.TIMEZONE_NAME.getKey(), timezoneName)
+                .build();
+
         Intent intent = new Intent(this, DatePickerActivity.class);
-        startActivity(intent);
+        intent.putExtras(bundle);
+
+        startActivity(intent, bundle);
+        finish();
+    }
+
+    private void showToast(String text, int duration) {
+        Toast toast = Toast.makeText(this, text, duration);
+        toast.show();
     }
 
     public void searchForCities(View view) {
@@ -100,28 +117,28 @@ public class SetAlarmActivity extends Activity {
         DateTimeZone[] timeZonesByName = JodaTimezone.findTimeZonesByName(searchFieldText);
         Log.i("Search Timezones", "Found " + timeZonesByName.length + " timezones.");
 
-        setTimezonesList(timeZonesByName);
+        setTimeZonesList(timeZonesByName);
     }
 
     private void setTimezoneName(Message message) {
-        this.timezoneName = message.getData().getString("cityName");
+        this.timezoneName = message.getData().getString(Keys.TIMEZONE_NAME.getKey());
     }
 
     private void setDateToTextView(Message message) {
-        String cityName, date;
-        cityName = message.getData().getString("cityName");
-        date = message.getData().getString("date");
-
-        TextView textView = (TextView) findViewById(R.id.chosenTimeValueLabel);
-        textView.setText(date);
+        MessageWrapper wrappedMessage = new MessageWrapper(message);
+        String timeZoneName = wrappedMessage.getTimeZoneName();
+        String date = wrappedMessage.getDateAsAString();
+        setDateToTextView(timeZoneName, date);
     }
 
-    public void onSearchClick(View view) {
-        Log.i("MyActivity", "Not implemented");
+    private void setDateToTextView(String timeZoneName, String dateAsString) {
+        TextView timeLabel = (TextView) findViewById(R.id.chosenTimeValueLabel);
+        TextView timezoneNameLabel = (TextView) findViewById(R.id.timeZoneNameValueLabel);
+        timeLabel.setText(dateAsString);
+        timezoneNameLabel.setText(timeZoneName);
     }
 
     private class ListItemClickListener implements AdapterView.OnItemClickListener {
-
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             String text = ((DateTimeZone) adapterView.getItemAtPosition(i)).getID();

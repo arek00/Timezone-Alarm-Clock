@@ -5,8 +5,9 @@ import android.content.ServiceConnection;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import com.arek00.alarmclock.builders.BundleBuilder;
+import com.arek00.alarmclock.messages.Keys;
 import com.arek00.alarmclock.services.TimeService;
+import com.arek00.alarmclock.utils.BundleBuilder;
 
 public class TimeServiceConnection implements ServiceConnection {
     private Messenger serviceMessenger;
@@ -58,9 +59,10 @@ public class TimeServiceConnection implements ServiceConnection {
     }
 
     private Message createMessage(String text, int messageType) {
+        String timeZoneKeyName = Keys.TIMEZONE_NAME.getKey();
         Message message = Message.obtain(null, messageType);
         Bundle bundle = new BundleBuilder()
-                .withString("name", text)
+                .withString(timeZoneKeyName, text)
                 .build();
 
         message.setData(bundle);

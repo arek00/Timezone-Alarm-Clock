@@ -4,7 +4,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.*;
 import android.util.Log;
+import com.arek00.alarmclock.messages.Keys;
+import com.arek00.alarmclock.time.Hour;
 import com.arek00.alarmclock.time.HourGenerator;
+import com.arek00.alarmclock.time.TimeConverter;
+import com.arek00.alarmclock.utils.BundleBuilder;
 import org.joda.time.DateTimeZone;
 
 import java.util.Timer;
@@ -41,43 +45,60 @@ public class TimeService extends Service {
     }
 
     private boolean findTimezone(Message message) {
-        String timeZoneId = message.getData().getString("name");
+        String timezoneKey = Keys.TIMEZONE_NAME.getKey();
+        String timeZoneId = message.getData().getString(timezoneKey);
+        DateTimeZone timeZone = createTimeZoneFromId(timeZoneId);
 
-        DateTimeZone timeZone;
-        try {
-            timeZone = DateTimeZone.forID(timeZoneId);
-        } catch (IllegalArgumentException exception) {
-            Log.i("City has not been set ", "Could not found timezone with id: " + timeZoneId);
+        if (timeZone == null) {
             return false;
         }
 
         this.currentTimezone = timeZone;
         Log.i("City has been set: ", timeZoneId + " UTC " + timeZone.getOffset(0l));
         return true;
-
     }
 
-    private void sendMessageToActivity() {
-        String cityName;
-        String date;
+    private DateTimeZone createTimeZoneFromId(String id) {
+        DateTimeZone timeZone = null;
 
-        cityName = currentTimezone.getID();
-        date = hourGenerator.getCurrentHourInTimeZone(currentTimezone).toString();
+        try {
+            timeZone = DateTimeZone.forID(id);
+        } catch (IllegalArgumentException exception) {
+            Log.i("City has not been set ", "Could not found timezone with id: " + id);
+        }
+
+        return timeZone;
+    }
+
+    private void sendMessage() {
+        String timeZoneName;
+        Hour hour;
+        timeZoneName = currentTimezone.getID();
+        hour = hourGenerator.getCurrentHourInTimeZone(currentTimezone);
 
         try {
             Message message = Message.obtain(null, TimeService.SEND_DATE);
-            Bundle bundle = new Bundle();
-
-            bundle.putString("cityName", cityName);
-            bundle.putString("date", date);
-
+            Bundle bundle = createMessageBundle(timeZoneName, hour);
             message.setData(bundle);
             clientMessenger.send(message);
-            Log.i("Time Service", " Sent " + date + " message to activity");
+            Log.i("Time Service", " Sent " + hour.toString() + " message to activity");
 
         } catch (RemoteException e) {
             Log.i("Time Service", " Couldnt send message to activity");
         }
+    }
+
+    private Bundle createMessageBundle(String timeZoneName, Hour hour) {
+        double offsetInHours = TimeConverter.getMillisConverter().toHours(currentTimezone.getOffset(0l));
+
+        return new BundleBuilder()
+                .withString(Keys.TIMEZONE_NAME.getKey(), timeZoneName)
+                .withString(Keys.DATE_AS_STRING.getKey(), hour.toString())
+                .withInteger(Keys.HOUR.getKey(), hour.getHour())
+                .withInteger(Keys.MINUTE.getKey(), hour.getMinute())
+                .withInteger(Keys.SECOND.getKey(), hour.getSecond())
+                .withDouble(Keys.UTC_OFFSET.getKey(), offsetInHours)
+                .build();
     }
 
     private void checkServiceIsStarted() {
@@ -120,7 +141,7 @@ public class TimeService extends Service {
 
         @Override
         public void run() {
-            sendMessageToActivity();
+            sendMessage();
         }
     }
 

@@ -1,13 +1,12 @@
 package com.arek00.alarmclock.time;
 
-/**
- * Created by Admin on 2015-01-18.
- */
+import lombok.Getter;
+
 public class Hour {
 
-    private int hour;
-    private int minute;
-    private int second;
+    @Getter private int hour;
+    @Getter private int minute;
+    @Getter private int second;
 
     public Hour(int hour, int minute, int second) {
 

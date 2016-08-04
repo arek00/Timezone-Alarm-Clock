@@ -38,18 +38,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/setalarm.your_time"
-                    android:id="@+id/yourTimeTitleLabel" android:layout_row="0" android:layout_column="0"/>
+                    android:text="@string/setalarm.timezone_name"
+                    android:id="@+id/timeZoneNameLabel" android:layout_row="0" android:layout_column="0"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setalarm.not_set"
-                    android:id="@+id/yourTimeValueLabel" android:layout_row="0" android:layout_column="15"/>
+                    android:id="@+id/timeZoneNameValueLabel" android:layout_row="0" android:layout_column="15"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setalarm.not_set"
-                    android:id="@+id/chosenTimeValueLabel" android:layout_row="1" android:layout_column="15"/>
+                    android:id="@+id/chosenTimeValueLabel" android:layout_row="1" android:layout_column="15"
+                    android:textAlignment="textEnd"/>
         </GridLayout>
     </LinearLayout>
     <LinearLayout
@@ -61,15 +62,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:weightSum="1">
             <EditText
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/searchField" android:layout_margin="10dp"/>
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/searchField" android:layout_margin="10dp"
+                    android:hint="@string/setalarm.set_timezone_search_hint" android:linksClickable="false"
+                    android:lines="1" android:minHeight="20dp" android:layout_weight="1"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setalarm.search"
-                    android:id="@+id/searchButton" android:layout_margin="10dp" android:layout_weight="0.50"
-                    android:lines="1" android:maxLines="1" android:onClick="searchForCities"/>
+                    android:id="@+id/searchButton" android:layout_margin="10dp"
+                    android:lines="1" android:maxLines="1" android:onClick="searchForCities" android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
     <TextView
@@ -79,9 +82,9 @@
             android:id="@+id/citiesListText"/>
     <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="222dp"
             android:id="@+id/citiesList"
-            android:visibility="visible"/>
+            android:visibility="visible" android:stackFromBottom="false"/>
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:layout_weight="1">

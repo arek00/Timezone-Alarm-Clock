@@ -30,22 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_below="@+id/buttonsContainer"
             android:layout_alignParentStart="true" android:layout_margin="6dp" android:id="@+id/relativeLayout">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date_picker.your_time"
-                android:id="@+id/yourTimeLabel" android:textSize="16dp" android:textColor="#ffffff"
-                android:layout_alignParentLeft="true" android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="true" android:layout_marginTop="0dp"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="@string/setalarm.not_set" android:id="@+id/yourTimeValueLabel" android:textSize="16dp"
-                  android:textColor="#ffffff" android:layout_marginLeft="0dp"
-                  android:layout_alignParentTop="true" android:layout_alignParentEnd="true"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="@string/date_picker.selected_time_zone_id" android:id="@+id/timeZoneIdLabel"
                   android:textSize="16dp"
                   android:textColor="#ffffff" android:layout_marginLeft="0dp"
-                  android:layout_below="@+id/yourTimeLabel" android:layout_alignParentStart="true"/>
+                  android:layout_alignParentStart="true"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="@string/setalarm.not_set" android:id="@+id/timeZoneIdValueLabel"
                   android:textSize="16dp" android:textColor="#ffffff" android:layout_marginLeft="0dp"
@@ -58,6 +47,12 @@
                   android:text="@string/setalarm.not_set" android:id="@+id/timeZoneHourValueLabel"
                   android:textSize="16dp" android:textColor="#ffffff" android:layout_marginLeft="0dp"
                   android:layout_below="@+id/timeZoneIdValueLabel" android:layout_alignParentEnd="true"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/alarmDescriptionEditText"
+                android:layout_below="@+id/timeZoneHourLabel" android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" android:hint="@string/date_picker.alarm_description"/>
     </RelativeLayout>
     <Button
             android:layout_width="wrap_content"
@@ -68,9 +63,10 @@
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/date_picker.back_button"
             android:id="@+id/backToTimezoneButton"
-            android:layout_alignParentBottom="true" android:layout_alignStart="@+id/relativeLayout"/>
+            android:layout_alignParentBottom="true" android:layout_alignStart="@+id/relativeLayout"
+            android:onClick="onBackToTimeZoneSelectionClick"/>
     <RelativeLayout android:layout_width="match_parent" android:layout_height="fill_parent"
-                    android:id="@+id/periodicAlarmLayout" android:visibility="gone"
+                    android:id="@+id/periodicAlarmLayout" android:visibility="visible"
                     android:layout_below="@+id/relativeLayout" android:layout_alignParentStart="true"
                     android:layout_above="@+id/setAlarmButton">
         <ScrollView
@@ -110,7 +106,7 @@
                             android:id="@+id/periodicTimePicker" android:timePickerMode="clock"
                             android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true" android:layout_gravity="center"
-                            android:layout_margin="5dp" android:layout_weight="3">
+                            android:layout_margin="5dp" android:layout_weight="2">
                 </TimePicker>
             </LinearLayout>
         </ScrollView>
@@ -124,16 +120,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/scrollView2">
-            <TimePicker
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/timePicker"
-                    android:timePickerMode="spinner"
-                    android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
         </ScrollView>
+        <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timePicker"
+                android:timePickerMode="spinner"
+                android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
     </RelativeLayout>
     <RelativeLayout android:layout_width="match_parent" android:layout_height="fill_parent"
-                    android:id="@+id/concreteDateLayout" android:visibility="visible"
+                    android:id="@+id/concreteDateLayout" android:visibility="gone"
                     android:layout_below="@+id/relativeLayout" android:layout_alignParentStart="true"
                     android:layout_above="@+id/setAlarmButton">
         <ScrollView

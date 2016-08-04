@@ -9,7 +9,6 @@ import java.util.TimeZone;
 public class HourGenerator {
 
     private static HourGenerator instance = new HourGenerator();
-    // private Calendar calendar = Calendar.getInstance();
     private TimeZone userTimeZone;
     private int userUTCOffset;
 

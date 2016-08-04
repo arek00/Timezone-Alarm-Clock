@@ -1,8 +1,10 @@
 package com.arek00.alarmclock.messages;
 
+import lombok.Getter;
+
 public enum Keys {
 
-    TIMEZONE("timezone"),
+    TIMEZONE_NAME("timezone"),
     DATE_AS_STRING("dateAsaString"),
     HOUR("hour"),
     MINUTE("minute"),
@@ -10,7 +12,7 @@ public enum Keys {
     MILLIS("millis"),
     UTC_OFFSET("offset");
 
-    private final String key;
+    @Getter private final String key;
 
     Keys(String key) {
         this.key = key;

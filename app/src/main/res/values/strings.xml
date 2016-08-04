@@ -18,10 +18,12 @@
     <!-- SET ALARM STRINGS -->
     <string name="setalarm.your_time">Your time zone</string>
     <string name="setalarm.search">Search</string>
-    <string name="setalarm.timezone_time">Timezone</string>
+    <string name="setalarm.timezone_time">Time</string>
+    <string name="setalarm.timezone_name">Selected Timezone</string>
     <string name="setalarm.timezones">Timezones</string>
     <string name="setalarm.not_set">Not set</string>
     <string name="setalarm.set_timezone_hint">Choose timezone from the search results.</string>
+    <string name="setalarm.set_timezone_search_hint">Type name of country, city, continent, timezone</string>
     <string name="setalarm.set_date_button_text">Select alarm date</string>
 
     <!-- DATE PICKER -->
@@ -33,6 +35,7 @@
     <string name="date_picker.selected_time_zone_time">Time in Time Zone</string>
     <string name="date_picker.set_button">Set Alarm</string>
     <string name="date_picker.back_button">Select Timezone</string>
+    <string name="date_picker.alarm_description">Set Alarm description</string>
 
 
     <!-- -->

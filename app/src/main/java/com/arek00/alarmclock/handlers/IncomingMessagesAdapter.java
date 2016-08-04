@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Empty implementations of {@link com.arek00.alarmclock.handlers.IncomingMessagesHandler.IncomingMessagesListener}
- * Destinated to extend and implement only demanded methods.
+ * Designated to extend and implement only demanded methods.
  */
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class IncomingMessagesAdapter implements IncomingMessagesHandler.IncomingMessagesListener {

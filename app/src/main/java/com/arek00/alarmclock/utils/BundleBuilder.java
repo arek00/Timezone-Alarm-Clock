@@ -1,4 +1,4 @@
-package com.arek00.alarmclock.builders;
+package com.arek00.alarmclock.utils;
 
 import android.os.Bundle;
 import android.os.IBinder;
