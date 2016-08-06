@@ -9,6 +9,7 @@ import com.arek00.alarmclock.time.Hour;
 import com.arek00.alarmclock.time.HourGenerator;
 import com.arek00.alarmclock.time.TimeConverter;
 import com.arek00.alarmclock.utils.BundleBuilder;
+import com.arek00.alarmclock.utils.MessageWrapper;
 import org.joda.time.DateTimeZone;
 
 import java.util.Timer;
@@ -45,8 +46,8 @@ public class TimeService extends Service {
     }
 
     private boolean findTimezone(Message message) {
-        String timezoneKey = Keys.TIMEZONE_NAME.getKey();
-        String timeZoneId = message.getData().getString(timezoneKey);
+        MessageWrapper wrappedMessage = MessageWrapper.getWrappedMessage(message);
+        String timeZoneId = wrappedMessage.getTimeZoneName();
         DateTimeZone timeZone = createTimeZoneFromId(timeZoneId);
 
         if (timeZone == null) {

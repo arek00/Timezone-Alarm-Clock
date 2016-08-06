@@ -47,7 +47,7 @@ public class DatePickerActivity extends Activity {
 
     private void initializeService() {
         IncomingMessagesHandler handler = new IncomingMessagesHandler();
-        IncomingMessagesHandler.ObservableHandler listeningHandler = handler.getListeningHandler();
+        IncomingMessagesHandler.Observable listeningHandler = handler.getObservable();
         listeningHandler.registerListener(new IncomingMessagesListener());
         connection = new TimeServiceConnection(new Messenger(handler));
         bindService(new Intent(this, TimeService.class), connection, Context.BIND_AUTO_CREATE);

@@ -11,6 +11,10 @@ public class MessageWrapper {
         this.message = message;
     }
 
+    public static MessageWrapper getWrappedMessage(Message message) {
+        return new MessageWrapper(message);
+    }
+
     private String getString(Keys key) {
         return message.getData().getString(key.getKey());
     }

@@ -11,11 +11,11 @@ import java.util.List;
 
 public class IncomingMessagesHandler extends Handler {
 
-    @Getter private final ObservableHandler listeningHandler = new ObservableHandler();
+    @Getter private final Observable observable = new Observable();
 
     @Override
     public void handleMessage(Message message) {
-        listeningHandler.informListeners(message);
+        observable.informListeners(message);
     }
 
     public interface IncomingMessagesListener {
@@ -28,7 +28,7 @@ public class IncomingMessagesHandler extends Handler {
         void onSetCityMessageReceived(Message message);
     }
 
-    public class ObservableHandler {
+    public class Observable {
         private List<IncomingMessagesListener> listeners = new ArrayList<IncomingMessagesListener>();
 
         public void registerListener(@NonNull IncomingMessagesListener listener) {

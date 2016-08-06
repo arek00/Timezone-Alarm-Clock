@@ -34,7 +34,7 @@ public class TimeServiceConnection implements ServiceConnection {
         serviceMessenger = null;
     }
 
-    public void sendMessage(String messageString, int messageType) throws RemoteException {
+    public void sendMessage(int messageType, String messageString) throws RemoteException {
         if (serviceMessenger == null) {
             return;
         }
