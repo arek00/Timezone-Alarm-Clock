@@ -72,7 +72,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/setalarm.search"
                     android:id="@+id/searchButton" android:layout_margin="10dp"
-                    android:lines="1" android:maxLines="1" android:onClick="searchForCities" android:layout_weight="1"/>
+                    android:lines="1" android:maxLines="1" android:onClick="onSearchForTimeZone"
+                    android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
     <TextView

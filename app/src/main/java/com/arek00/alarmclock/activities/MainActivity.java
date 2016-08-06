@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 
     public void onSetNewAlarmButtonClick(View view) {
         Log.i("Main activity", "Clicked onSetNewAlarmButton");
-        Intent intent = new Intent(this, SetAlarmActivity.class);
+        Intent intent = new Intent(this, ChooseTimeZoneActivity.class);
         startActivity(intent);
     }
 

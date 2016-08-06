@@ -23,7 +23,7 @@ import com.arek00.alarmclock.utils.MessageWrapper;
 import org.joda.time.DateTimeZone;
 
 
-public class SetAlarmActivity extends Activity {
+public class ChooseTimeZoneActivity extends Activity {
 
     private IncomingMessagesHandler handler;
     private Messenger handlerMessenger;
@@ -69,6 +69,14 @@ public class SetAlarmActivity extends Activity {
         list.setAdapter(adapter);
     }
 
+    private void checkIfFoundAnyTimeZone(DateTimeZone[] timeZones) {
+        if (timeZones.length == 0) {
+            Toast toast = Toast.makeText(this, "Did not found anything.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
     private void setListItemClickListener(ListItemClickListener listener) {
         ListView citiesList = (ListView) findViewById(R.id.citiesList);
         citiesList.setOnItemClickListener(listener);
@@ -110,14 +118,14 @@ public class SetAlarmActivity extends Activity {
         toast.show();
     }
 
-    public void searchForCities(View view) {
+    public void onSearchForTimeZone(View view) {
         EditText searchField = (EditText) findViewById(R.id.searchField);
         String searchFieldText = searchField.getText().toString();
 
         DateTimeZone[] timeZonesByName = JodaTimezone.findTimeZonesByName(searchFieldText);
-        Log.i("Search Timezones", "Found " + timeZonesByName.length + " timezones.");
-
+        checkIfFoundAnyTimeZone(timeZonesByName);
         setTimeZonesList(timeZonesByName);
+        Log.i("Search Timezones", "Found " + timeZonesByName.length + " timezones.");
     }
 
     private void setTimezoneName(Message message) {

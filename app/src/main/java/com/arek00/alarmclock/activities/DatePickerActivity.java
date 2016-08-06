@@ -102,7 +102,7 @@ public class DatePickerActivity extends Activity {
     }
 
     public void onBackToTimeZoneSelectionClick(View view) {
-        Intent intent = new Intent(this, SetAlarmActivity.class);
+        Intent intent = new Intent(this, ChooseTimeZoneActivity.class);
         startActivity(intent);
         finish();
     }
